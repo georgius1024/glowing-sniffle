@@ -68,7 +68,7 @@ export default {
     }
   },
   mounted() {
-    this.capture();
+    setTimeout(() => this.capture(), 100);
   },
   updated() {
     /*this.capture();*/
