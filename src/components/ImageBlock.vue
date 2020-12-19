@@ -1,6 +1,8 @@
 <template>
   <article class="block image-block" :style="blockStyle">
-    <a :href="url" target="_blank"><img :src="src" :alt="alt"/></a>
+    <a :href="url" target="_blank">
+      <img :src="src" :alt="alt" />
+    </a>
   </article>
 </template>
 <script>
@@ -38,7 +40,7 @@ article {
   padding: 12px;
   text-align: center;
   img {
-    width: 100%;
+    width: calc(100% - 24px);
   }
 }
 </style>
