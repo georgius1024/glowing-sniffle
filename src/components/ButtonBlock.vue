@@ -43,7 +43,7 @@ export default {
       return {
         backgroundColor: this.button,
         color: this.color,
-        width: `${this.size}vw`
+        width: `${this.size}px`
       };
     }
   }
