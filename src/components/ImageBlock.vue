@@ -1,7 +1,7 @@
 <template>
   <article class="block image-block" :style="blockStyle">
     <a :href="url" target="_blank">
-      <img :src="src" :alt="alt" />
+      <img :src="src" :alt="alt" :width="width" />
     </a>
   </article>
 </template>
@@ -24,6 +24,10 @@ export default {
     background: {
       type: String,
       default: "#fff"
+    },
+    width: {
+      type: String,
+      default: "auto"
     }
   },
   computed: {
@@ -39,8 +43,5 @@ export default {
 article {
   padding: 12px;
   text-align: center;
-  img {
-    width: calc(100% - 24px);
-  }
 }
 </style>

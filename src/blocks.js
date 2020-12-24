@@ -3,6 +3,7 @@ export default [
     id: "i1",
     type: "image",
     src: "images/img1.jpg", //require("./assets/img1.jpg"),
+    width: "400",
     url: "#",
     alt: "Ultra posse nemo obligatur",
     background: "#194d19"

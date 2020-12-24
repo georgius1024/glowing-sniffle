@@ -38,11 +38,7 @@ export default {
 .row {
   display: flex;
   flex-direction: row;
-  padding: 0 12px;
   .col {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     border: 1px dotted silver;
   }
 }
