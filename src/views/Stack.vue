@@ -1,6 +1,11 @@
 <template>
   <div id="stack">
-    <draggable ref="draggable" v-model="order" class="sortable">
+    <draggable
+      ref="draggable"
+      v-model="order"
+      class="sortable"
+      :options="{ invertSwap: true, animation: 150, direction: 'vertical' }"
+    >
       <div class="wrapper" v-for="(row, index) in sortedRows" :key="index">
         <container :cols="row.length">
           <template v-slot:col1>
