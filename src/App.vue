@@ -1,21 +1,21 @@
 <template>
   <div id="app">
-    <sorter1 v-show="false"/>
+    <sorter1 v-show="false" />
     <Stack />
   </div>
 </template>
 
 <script>
-import Sorter1 from "./views/Sorter1";
-import Stack from "./views/Stack";
+import Sorter1 from './views/Sorter1'
+import Stack from './views/Stack'
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     Sorter1,
-    Stack
-  }
-};
+    Stack,
+  },
+}
 </script>
 
 <style lang="scss">
@@ -25,7 +25,7 @@ export default {
 }
 #app {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

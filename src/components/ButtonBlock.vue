@@ -5,49 +5,49 @@
 </template>
 <script>
 export default {
-  name: "ButtonBlock",
+  name: 'ButtonBlock',
   props: {
     text: {
       type: String,
-      required: true
+      required: true,
     },
     url: {
       type: String,
-      required: true
+      required: true,
     },
     color: {
       type: String,
-      default: "#333"
+      default: '#333',
     },
     button: {
       type: String,
-      default: "#ccc"
+      default: '#ccc',
     },
     background: {
       type: String,
-      default: "#fff"
+      default: '#fff',
     },
     size: {
       type: Number,
-      default: 100
-    }
+      default: 100,
+    },
   },
   computed: {
     blockStyle() {
       return {
         backgroundColor: this.background,
-        color: this.color
-      };
+        color: this.color,
+      }
     },
     buttonStyle() {
       return {
         backgroundColor: this.button,
         color: this.color,
-        width: `${this.size}px`
-      };
-    }
-  }
-};
+        width: `${this.size}px`,
+      }
+    },
+  },
+}
 </script>
 <style scoped lang="scss">
 article {
@@ -64,6 +64,9 @@ article {
     text-align: center;
     text-decoration: none;
     padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 </style>

@@ -22,17 +22,17 @@ export default {
   props: {
     cols: {
       type: Number,
-      requied: true
-    }
+      requied: true,
+    },
   },
   computed: {
     columnStyle() {
       return {
-        width: `${(100 / this.cols).toFixed(2)}%`
-      };
-    }
-  }
-};
+        width: `${(100 / this.cols).toFixed(2)}%`,
+      }
+    },
+  },
+}
 </script>
 <style lang="scss" scoped>
 .row {
@@ -40,6 +40,11 @@ export default {
   flex-direction: row;
   .col {
     border: 1px dotted silver;
+    display: flex;
+    & > * {
+      display: flex;
+      flex-grow: 1;
+    }
   }
 }
 </style>

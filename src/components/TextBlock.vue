@@ -6,7 +6,7 @@
 </template>
 <script>
 export default {
-  name: "TextBlock",
+  name: 'TextBlock',
   props: {
     header: {
       type: String,
@@ -18,11 +18,11 @@ export default {
     },
     color: {
       type: String,
-      default: "#333",
+      default: '#333',
     },
     background: {
       type: String,
-      default: "#fff",
+      default: '#fff',
     },
   },
   computed: {
@@ -30,14 +30,16 @@ export default {
       return {
         backgroundColor: this.background,
         color: this.color,
-      };
+      }
     },
   },
-};
+}
 </script>
 <style scoped lang="scss">
 article {
   padding: 12px;
+  display: flex;
+  flex-direction: column;
   header {
     font-size: 20px;
     font-weight: bold;
