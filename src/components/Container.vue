@@ -1,37 +1,34 @@
 <template>
-  <section class="row">
-    <template v-if="cols >= 1">
-      <div class="col" :style="columnStyle">
-        <slot name="col1"> Col 1 </slot>
-      </div>
-    </template>
-    <template v-if="cols >= 2">
-      <div class="col" :style="columnStyle">
-        <slot name="col2"> Col 2 </slot>
-      </div>
-    </template>
-    <template v-if="cols === 3">
-      <div class="col" :style="columnStyle">
-        <slot name="col3"> Col 3 </slot>
-      </div>
-    </template>
-  </section>
+  <div class="row">
+    <div
+      class="col"
+      :style="columnStyle"
+      v-for="block in value"
+      :key="block.id"
+    >
+      <component v-bind="block.props" :is="block.component" :key="block.id" />
+    </div>
+  </div>
 </template>
 <script>
 export default {
+  name: 'Container',
   props: {
-    cols: {
-      type: Number,
-      requied: true,
-    },
+    value: {
+      type: Array,
+      requied: true
+    }
   },
   computed: {
+    cols() {
+      return this.value.length
+    },
     columnStyle() {
       return {
-        width: `${(100 / this.cols).toFixed(2)}%`,
+        width: `${(100 / this.cols).toFixed(2)}%`
       }
-    },
-  },
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -39,7 +36,6 @@ export default {
   display: flex;
   flex-direction: row;
   .col {
-    border: 1px dotted silver;
     display: flex;
     & > * {
       display: flex;

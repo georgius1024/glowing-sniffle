@@ -47,7 +47,7 @@ export default [
     src: 'images/img3.jpg',
     url: '#',
     alt: 'Quid est veritas?',
-    background: '#ffe6ff',
+    background: '#194d19',
     row: 2,
     position: 1
   },
@@ -66,10 +66,10 @@ export default [
     id: 'b2',
     type: 'button',
     text: 'Persōna',
-    color: '#ccc',
+    color: '#777777',
     url: '#',
-    button: '#000',
-    background: '#ffe6ff',
+    button: '#ccc',
+    background: '#194d19',
     row: 4,
     position: 0
   },
@@ -88,10 +88,10 @@ export default [
     id: 'b4',
     type: 'button',
     text: 'Prosit',
-    color: '#ccc',
+    color: '#777777',
     url: '#',
-    button: '#000',
-    background: '#ffe6ff',
+    button: '#ccc',
+    background: '#194d19',
     row: 4,
     position: 2
   }

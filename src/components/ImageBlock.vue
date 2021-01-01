@@ -1,6 +1,6 @@
 <template>
   <article class="block image-block" :style="blockStyle">
-    <a :href="url" target="_blank">
+    <a :href="url" target="_blank" @click.prevent="">
       <img :src="src" :alt="alt" width="100%" />
     </a>
   </article>
@@ -11,32 +11,32 @@ export default {
   props: {
     src: {
       type: String,
-      required: true,
+      required: true
     },
     url: {
       type: String,
-      required: true,
+      required: true
     },
     alt: {
       type: String,
-      default: 'image',
+      default: 'image'
     },
     background: {
       type: String,
-      default: '#fff',
+      default: '#fff'
     },
     width: {
       type: String,
-      default: 'auto',
-    },
+      default: 'auto'
+    }
   },
   computed: {
     blockStyle() {
       return {
-        backgroundColor: this.background,
+        backgroundColor: this.background
       }
-    },
-  },
+    }
+  }
 }
 </script>
 <style scoped lang="scss">
