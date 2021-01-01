@@ -14,6 +14,7 @@
       :active="active === index"
       @input="updateRow(index, $event)"
       @move-out="moveOut(index, $event)"
+      @delete="deleteBlock(index, $event)"
       @activate="active = index"
       @deactivate="active = -1"
     />
@@ -79,6 +80,11 @@ export default {
         this.active = index + 1
       }
       this.emit(rows)
+    },
+    deleteBlock(index, col) {
+      const rows = [...this.rows]
+      rows[index].splice(col, 1)
+      this.emit(rows.filter(r => r.length))
     }
   }
 }

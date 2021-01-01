@@ -33,10 +33,10 @@
         :style="columnStyle"
         v-for="(block, column) in value"
         :key="block.id"
-        @mouseenter="selectedColumn = (active ? column : -1)"
-        @mouseleave="selectedColumn = -1"
+        @mousemove="selectedColumn = (active ? column : -1)"
+        @mouseout="selectedColumn = -1"
       >
-        <button class="delete">
+        <button class="delete" @click="deleteBlock(column)">
           <svg style="width:32px;height:32px" viewBox="0 0 24 24">
             <path
               fill="currentColor"
@@ -127,8 +127,11 @@ export default {
       this.deactivate()
       clearTimeout(this.timer)
     },
-    moveOut(index) {
-      this.$emit('move-out', index)
+    moveOut(column) {
+      this.$emit('move-out', column)
+    },
+    deleteBlock(column) {
+      this.$emit('delete', column)
     }
   }
 }
@@ -175,15 +178,16 @@ export default {
       .delete {
         display: none;
         position: absolute;
-        width: 32px;
-        height: 32x;
+        width: 36px;
+        height: 36px;
         top: 16px;
         right: 16px;
         color: red;
         z-index: 10;
         border: 0px none transparent;
         outline: 0px none transparent;
-        background-color: transparent;
+        background-color: rgba(255, 255, 255, 0.4);
+        border-radius: 50%;
         box-shadow: none;
       }
       &.active {
