@@ -2,12 +2,12 @@ export default [
   {
     id: 'i1',
     type: 'image',
-    src: 'images/img1.jpg', //require("./assets/img1.jpg"),
+    src: 'images/img1.jpg',
     url: '#',
     alt: 'Ultra posse nemo obligatur',
     background: '#194d19',
     row: 0,
-    position: 0,
+    position: 0
   },
   {
     id: 't1',
@@ -18,7 +18,7 @@ export default [
     color: '#777777',
     background: '#ffe6ff',
     row: 1,
-    position: 0,
+    position: 0
   },
   {
     id: 'b1',
@@ -29,27 +29,27 @@ export default [
     button: '#000',
     background: '#ffe6ff',
     row: 1,
-    position: 1,
+    position: 1
   },
   {
     id: 'i2',
     type: 'image',
-    src: 'images/img2.jpg', // require("./assets/img2.jpg"),
+    src: 'images/img2.jpg',
     url: '#',
     alt: 'Semper homo bonus tiro est',
     background: '#194d19',
     row: 2,
-    position: 0,
+    position: 0
   },
   {
     id: 'i3',
     type: 'image',
-    src: 'images/img3.jpg', // require("./assets/img3.jpg"),
+    src: 'images/img3.jpg',
     url: '#',
     alt: 'Quid est veritas?',
     background: '#ffe6ff',
     row: 2,
-    position: 1,
+    position: 1
   },
   {
     id: 't2',
@@ -60,7 +60,7 @@ export default [
     color: '#777777',
     background: '#ffe6ff',
     row: 3,
-    position: 0,
+    position: 0
   },
   {
     id: 'b2',
@@ -71,7 +71,7 @@ export default [
     button: '#000',
     background: '#ffe6ff',
     row: 4,
-    position: 0,
+    position: 0
   },
   {
     id: 'b3',
@@ -82,7 +82,7 @@ export default [
     button: '#ccc',
     background: '#194d19',
     row: 4,
-    position: 1,
+    position: 1
   },
   {
     id: 'b4',
@@ -93,6 +93,6 @@ export default [
     button: '#000',
     background: '#ffe6ff',
     row: 4,
-    position: 2,
-  },
+    position: 2
+  }
 ]
