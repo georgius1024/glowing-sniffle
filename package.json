@@ -2,7 +2,11 @@
   "name": "blocks",
   "version": "0.1.0",
   "private": true,
+  "publicPath": "/glowing-sniffle/",
+  "homepage": "https://georgius1024.github.io/glowing-sniffle",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
@@ -10,6 +14,7 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "dom-to-image": "^2.6.0",
+    "lodash.debounce": "^4.0.8",
     "vue": "^2.6.11",
     "vue-js-modal": "^2.0.0-rc.6",
     "vuedraggable": "^2.24.3"
@@ -23,6 +28,7 @@
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.1.3",
     "eslint-plugin-vue": "^6.2.2",
+    "gh-pages": "^2.2.0",
     "node-sass": "^4.12.0",
     "prettier": "^1.19.1",
     "sass-loader": "^8.0.2",

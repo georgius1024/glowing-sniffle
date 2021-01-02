@@ -6,12 +6,12 @@
     <Composition :blocks="blocks" />
     <div class="sorter-outer" v-show="showSorter">
       <div class="sorter-inner">
-        <div class="toolbar">
-          <button @click="showSorter = false">Save and Close</button>
-        </div>
-        <Sorter v-model="blocks" @input="$emit('input', $event)" />
-        <div class="instructions" v-show="showInstructions">
-          <button class="close" @click="showInstructions = false">
+        <div class="instructions" v-if="showInstructions">
+          <button
+            class="close"
+            @click="showInstructions = false"
+            v-show="false"
+          >
             <svg style="width:24px;height:24px" viewBox="0 0 24 24">
               <path
                 fill="currentColor"
@@ -36,6 +36,12 @@
           <center>
             <a href="#" @click.prevent="showInstructions = false">Got it</a>
           </center>
+        </div>
+        <div v-else>
+          <div class="toolbar">
+            <button @click="showSorter = false">Save and Close</button>
+          </div>
+          <Sorter v-model="blocks" @input="$emit('input', $event)" />
         </div>
       </div>
     </div>
@@ -112,6 +118,8 @@ export default {
       background-color: #fff;
       overflow: hidden;
       padding: 32px 64px;
+      max-height: 100vh;
+      overflow-y: scroll;
       .toolbar {
         display: flex;
         flex-direction: row;
@@ -130,13 +138,6 @@ export default {
     }
     .instructions {
       padding: 16px;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 5;
-      padding: 32px;
       background-color: #fff;
       .close {
         position: absolute;
@@ -151,8 +152,6 @@ export default {
         cursor: pointer;
       }
     }
-    max-height: 100vh;
-    overflow-y: scroll;
   }
 }
 </style>

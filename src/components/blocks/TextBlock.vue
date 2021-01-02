@@ -10,29 +10,29 @@ export default {
   props: {
     header: {
       type: String,
-      required: true,
+      required: true
     },
     text: {
       type: String,
-      required: true,
+      required: true
     },
     color: {
       type: String,
-      default: '#333',
+      default: '#333'
     },
     background: {
       type: String,
-      default: '#fff',
-    },
+      default: '#fff'
+    }
   },
   computed: {
     blockStyle() {
       return {
         backgroundColor: this.background,
-        color: this.color,
+        color: this.color
       }
-    },
-  },
+    }
+  }
 }
 </script>
 <style scoped lang="scss">
