@@ -77,16 +77,16 @@ export default {
   }
   .sorter {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    // top: 0;
+    // left: 0;
+    // right: 0;
+    // bottom: 0;
     z-index: 5;
     background-color: #fff;
     overflow: hidden;
     padding: 32px;
     .close {
-      position: fixed;
+      position: absolute;
       top: 24px;
       right: 36px;
       outline: none;
