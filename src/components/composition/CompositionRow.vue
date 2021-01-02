@@ -12,7 +12,7 @@
 </template>
 <script>
 export default {
-  name: 'Container',
+  name: 'CompositionRow',
   props: {
     value: {
       type: Array,

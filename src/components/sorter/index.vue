@@ -23,8 +23,8 @@
 
 <script>
 import draggable from 'vuedraggable'
-import SortableRow from '../components/SortableRow'
-import { blocksToRows, rowsToBlocks } from '../block-utils'
+import SortableRow from './SortableRow'
+import { blocksToRows, rowsToBlocks } from '../../block-utils'
 
 export default {
   name: 'Sorter',

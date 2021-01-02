@@ -1,19 +1,19 @@
 <template>
   <div id="composition">
     <div class="wrapper" v-for="(row, index) in rows" :key="index">
-      <container :value="row" :key="index" />
+      <composition-row :value="row" :key="index" />
     </div>
   </div>
 </template>
 
 <script>
-import { blocksToRows } from '../block-utils'
-import Container from '../components/Container'
+import { blocksToRows } from '../../block-utils'
+import CompositionRow from './CompositionRow'
 
 export default {
   name: 'Composition',
   components: {
-    Container
+    CompositionRow
   },
   props: {
     blocks: {

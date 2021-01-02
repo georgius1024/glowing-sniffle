@@ -1,6 +1,6 @@
-import TextBlock from './components/TextBlock'
-import ButtonBlock from './components/ButtonBlock'
-import ImageBlock from './components/ImageBlock'
+import TextBlock from './components/blocks/TextBlock'
+import ButtonBlock from './components/blocks/ButtonBlock'
+import ImageBlock from './components/blocks/ImageBlock'
 
 export function mappedBlocks(blocks) {
   const wrap = ({ id, row, position, type, ...rest }, component) => ({

@@ -64,12 +64,10 @@
 </template>
 <script>
 import draggable from 'vuedraggable'
-import Zoomer from '../components/Zoomer'
 export default {
   name: 'SortableRow',
   components: {
-    draggable,
-    Zoomer
+    draggable
   },
   props: {
     value: {

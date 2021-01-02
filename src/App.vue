@@ -14,6 +14,8 @@
         </svg>
       </button>
       <Sorter v-model="blocks" />
+      <div class="instructions"></div>
+      
     </div>
   </div>
 </template>
@@ -21,8 +23,8 @@
 <script>
 import { mappedBlocks } from './block-utils'
 import blocks from './blocks'
-import Composition from './views/Composition'
-import Sorter from './views/Sorter'
+import Composition from './components/composition'
+import Sorter from './components/sorter'
 export default {
   name: 'App',
   components: {
