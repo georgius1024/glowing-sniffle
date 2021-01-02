@@ -22,7 +22,6 @@
 </template>
 
 <script>
-import _debounce from 'lodash/debounce'
 import draggable from 'vuedraggable'
 import SortableRow from './SortableRow'
 import { blocksToRows, rowsToBlocks } from '../../block-utils'
@@ -46,18 +45,6 @@ export default {
       active: -1
     }
   },
-  created() {
-    this.post1 = _debounce(rows => {
-      console.log(rows)
-      this.$emit('input', rowsToBlocks(rows))
-      this.rows = rows
-    }, 10)
-    this.post = rows => {
-      console.log(rows)
-      this.$emit('input', rowsToBlocks(rows))
-      this.rows = rows
-    }
-  },
   beforeMount() {
     this.updateRows()
   },
@@ -70,10 +57,7 @@ export default {
       this.rows = blocksToRows(this.value)
     },
     emit(rows) {
-      this.post(rows)
-      // this.$emit('input', rowsToBlocks(rows))
-      //this.rows = rows
-      //console.log(rows)
+      this.$emit('input', rowsToBlocks(rows))
     },
     input(rows) {
       this.emit(rows)
