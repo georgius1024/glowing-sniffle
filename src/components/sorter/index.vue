@@ -57,6 +57,7 @@ export default {
       this.rows = blocksToRows(this.value)
     },
     emit(rows) {
+      this.rows = rows
       this.$emit('input', rowsToBlocks(rows))
     },
     input(rows) {
