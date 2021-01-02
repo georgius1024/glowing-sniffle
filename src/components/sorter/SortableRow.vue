@@ -29,11 +29,12 @@
       @input="$emit('input', $event)"
     >
       <div
-        :class="{ col: true, active: selectedColumn === column }"
+        :class="{ col: true, active: active && selectedColumn === column }"
         :style="columnStyle"
         v-for="(block, column) in value"
         :key="block.id"
-        @mousemove="selectedColumn = (active ? column : -1)"
+        @mousein="selectedColumn = column"
+        @mousemove="selectedColumn = column"
         @mouseout="selectedColumn = -1"
       >
         <button class="delete" @click="deleteBlock(column)">

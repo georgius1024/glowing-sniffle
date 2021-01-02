@@ -1,5 +1,5 @@
 <template>
-  <div class="sorter" v-show="show">
+  <div class="sorter-outer" v-show="show">
     <button class="close" @click="showSorter = false">
       <svg style="width:24px;height:24px" viewBox="0 0 24 24">
         <path
@@ -8,8 +8,11 @@
         />
       </svg>
     </button>
-    <Sorter v-model="blocks" @input="$emit('input', $event)" />
-    <div class="instructions"></div>
+
+    <div class="sorter-inner">
+      <Sorter v-model="blocks" @input="$emit('input', $event)" />
+      <div class="instructions"></div>
+    </div>
   </div>
 </template>
 
@@ -30,7 +33,6 @@ export default {
       required: true
     }
   }
-
 }
 </script>
 
@@ -39,20 +41,25 @@ export default {
   max-height: 100vh;
   overflow-y: hidden;
 }
-.sorter {
+.sorter-outer {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   z-index: 5;
-  background-color: #fff;
-  overflow: hidden;
-  padding: 32px;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  .sorter-inner {
+    background-color: #fff;
+    overflow: hidden;
+    padding: 32px 64px;
+  }
   .close {
     position: fixed;
     top: 24px;
-    right: 36px;
+    right: -36px;
     outline: none;
     border: none;
     padding: 4px;
