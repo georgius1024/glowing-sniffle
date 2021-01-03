@@ -1,4 +1,5 @@
 export default {
   changes: [],
-  initialState: []
+  initialState: [],
+  position: 0
 }
