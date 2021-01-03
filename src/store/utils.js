@@ -32,6 +32,8 @@ export function actionReducer(blocks, change) {
           return { ...block }
         }
       })
+    default:
+      throw new Error('unknown action')
   }
 }
 

@@ -6,10 +6,11 @@ export default {
   load({ state }) {
     state.initialState = JSON.parse(localStorage.blocks || '[]')
     state.changes = []
+    state.position = 0
   },
   loadExample({ state }) {
     state.initialState = example
     state.changes = []
-    state.position = 0;
+    state.position = 0
   }
 }

@@ -9,13 +9,25 @@
       <div class="wrapper" v-for="(row, index) in sortedRows" :key="index">
         <container :cols="row.length">
           <template v-slot:col1>
-            <component v-bind="row[0].props" :is="row[0].component" :key="row[0].id" />
+            <component
+              v-bind="row[0].props"
+              :is="row[0].component"
+              :key="row[0].id"
+            />
           </template>
           <template v-slot:col2 v-if="row.length > 1">
-            <component v-bind="row[1].props" :is="row[1].component" :key="row[1].id" />
+            <component
+              v-bind="row[1].props"
+              :is="row[1].component"
+              :key="row[1].id"
+            />
           </template>
           <template v-slot:col3 v-if="row.length > 2">
-            <component v-bind="row[2].props" :is="row[2].component" :key="row[2].id" />
+            <component
+              v-bind="row[2].props"
+              :is="row[2].component"
+              :key="row[2].id"
+            />
           </template>
         </container>
       </div>
@@ -38,26 +50,26 @@ export default {
     TextBlock,
     ImageBlock,
     Container,
-    draggable,
+    draggable
   },
   data() {
     return {
       blocks,
-      order: [],
+      order: []
     }
   },
   computed: {
     keys() {
-      return this.blocks.map((e) => e.id).join(',')
+      return this.blocks.map(e => e.id).join(',')
     },
     mappedBlocks() {
-      return this.blocks.map((e) => {
+      return this.blocks.map(e => {
         const wrap = ({ id, row, position, ...rest }, component) => ({
           component,
           id,
           row,
           position,
-          props: rest,
+          props: rest
         })
         switch (e.type) {
           case 'text':
@@ -70,7 +82,9 @@ export default {
       })
     },
     rows() {
-      const rows = [...this.mappedBlocks].sort((a, b) => a.row - b.row || a.position - b.position)
+      const rows = [...this.mappedBlocks].sort(
+        (a, b) => a.row - b.row || a.position - b.position
+      )
       const reducer = (rows, block) => {
         const clone = [...rows]
         clone[block.row] = clone[block.row] || []
@@ -80,8 +94,8 @@ export default {
       return rows.reduce(reducer, [])
     },
     sortedRows() {
-      return this.order.map((index) => this.rows[index])
-    },
+      return this.order.map(index => this.rows[index])
+    }
   },
   created() {
     this.order = this.rows.map((_, index) => index)
@@ -89,8 +103,8 @@ export default {
   methods: {
     inspect(...args) {
       console.log(args)
-    },
-  },
+    }
+  }
 }
 </script>
 
