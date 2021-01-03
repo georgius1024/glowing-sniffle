@@ -3,7 +3,7 @@ import { ACTION_ADD, ACTION_REMOVE, ACTION_UPDATE, ACTION_SORT } from './utils'
 export default {
   addBlock(state, block) {
     state.changes = [
-      ...state.changes,
+      ...state.changes.slice(0, state.position),
       {
         action: ACTION_ADD,
         block
@@ -13,7 +13,7 @@ export default {
   },
   removeBlock(state, id) {
     state.changes = [
-      ...state.changes,
+      ...state.changes.slice(0, state.position),
       {
         action: ACTION_REMOVE,
         id
@@ -24,7 +24,7 @@ export default {
   updateBlock(state, block) {
     const { id, ...changes } = block
     state.changes = [
-      ...state.changes,
+      ...state.changes.slice(0, state.position),
       {
         action: ACTION_UPDATE,
         id,
@@ -35,7 +35,7 @@ export default {
   },
   sortBlocks(state, order) {
     state.changes = [
-      ...state.changes,
+      ...state.changes.slice(0, state.position),
       {
         action: ACTION_SORT,
         order
@@ -51,6 +51,11 @@ export default {
   redo(state) {
     if (state.position < state.changes.length) {
       state.position++
+    }
+  },
+  replace(state, changes) {
+    for (let field in changes) {
+      state[field] = changes[field]
     }
   }
 }

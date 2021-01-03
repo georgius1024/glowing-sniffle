@@ -8,9 +8,14 @@ export default {
     state.changes = []
     state.position = 0
   },
-  loadExample({ state }) {
-    state.initialState = example
-    state.changes = []
-    state.position = 0
+  loadExample({ commit }) {
+    // state.initialState = example
+    // state.changes = []
+    // state.position = 0
+    commit('replace', {
+      initialState: example,
+      changes: [],
+      position: 0
+    })
   }
 }

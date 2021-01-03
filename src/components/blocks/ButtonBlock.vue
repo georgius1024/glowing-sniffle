@@ -66,7 +66,6 @@ article {
     margin: 12px auto;
     border: none;
     border-radius: 25px;
-    cursor: pointer;
     text-align: center;
     text-decoration: none;
     padding: 5px;

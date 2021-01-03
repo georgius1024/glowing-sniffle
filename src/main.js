@@ -5,9 +5,10 @@ import App from './App.vue'
 import store from './store'
 Vue.use(Vuex)
 Vue.use(vmodal)
-new Vuex.Store(store)
+const appStore = new Vuex.Store(store)
 Vue.config.productionTip = false
 
 new Vue({
-  render: h => h(App)
+  render: h => h(App),
+  store: appStore
 }).$mount('#app')
