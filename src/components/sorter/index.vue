@@ -23,9 +23,9 @@
 
 <script>
 import draggable from 'vuedraggable'
+import _debounce from 'lodash.debounce'
 import SortableRow from './SortableRow'
 import { blocksToRows, rowsToBlocks } from '../../block-utils'
-
 export default {
   name: 'Sorter',
   components: {
@@ -42,23 +42,35 @@ export default {
     return {
       sortableRows: false,
       rows: [],
-      active: -1
+      active: -1,
+      lastSortEvent: null
     }
   },
-  beforeMount() {
-    this.updateRows()
+  created() {
+    this.postInputEvent = _debounce(() => {
+      this.$emit('input', rowsToBlocks(this.rows))
+    }, 100)
   },
-  beforeUpdate() {
-    this.updateRows()
-    console.log('----')
+  beforeMount() {
+    this.rows = blocksToRows(this.value)
+  },
+  watch: {
+    value: function(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        console.log('updated')
+        this.rows = blocksToRows(newValue)
+      }
+    }
   },
   methods: {
-    updateRows() {
-      this.rows = blocksToRows(this.value)
-    },
     emit(rows) {
+      // const now = new Date().valueOf()
+      // const delta = this.lastSortEvent ? now - this.lastSortEvent : null
+      // this.lastSortEvent = now
+
       this.rows = rows
-      this.$emit('input', rowsToBlocks(rows))
+      this.postInputEvent()
+      //this.$emit('input', rowsToBlocks(rows))
     },
     input(rows) {
       this.emit(rows)
