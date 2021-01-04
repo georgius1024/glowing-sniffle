@@ -1,5 +1,5 @@
 <template>
-  <div class="preview-rows">
+  <transition-group tag="section" id="preview-rows" name="list">
     <preview-row
       v-for="(row, index) in rows"
       :key="index"
@@ -10,7 +10,7 @@
       @select="$emit('select', $event)"
       @sort="$emit('sort')"
     />
-  </div>
+  </transition-group>
 </template>
 
 <script>
@@ -38,12 +38,16 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.preview-rows {
+<style lang="scss" scoped>
+#preview-rows {
   width: 687px;
   user-select: none;
   * {
     cursor: default;
   }
+}
+
+.list-leave-active {
+  width: 687px;
 }
 </style>

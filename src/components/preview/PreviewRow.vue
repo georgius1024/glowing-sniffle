@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div id="preview-row">
     <div
       :class="{
         col: true,
@@ -86,7 +86,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.row {
+#preview-row {
   display: flex;
   flex-direction: row;
   .col {

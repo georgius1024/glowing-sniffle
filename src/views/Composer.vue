@@ -197,7 +197,7 @@ export default {
     } else {
       this.resetBlocks()
     }
-    this.handler = event => {
+    this.keyboardHandler = event => {
       if (event.code === 'KeyS' && event.ctrlKey && this.hasUnsavedChanges) {
         this.saveBlocks()
         event.preventDefault()
@@ -214,11 +214,18 @@ export default {
         return false
       }
     }
-    document.addEventListener('keydown', this.handler)
-
+    this.unloadHandler = event => {
+      if (this.hasUnsavedChanges) {
+        event.preventDefault()
+        event.returnValue = ''
+      }
+    }
+    document.addEventListener('keydown', this.keyboardHandler)
+    window.addEventListener('beforeunload', this.unloadHandler)
   },
   beforeDestroy() {
-    document.removeEventListener('keydown', this.handler)
+    document.removeEventListener('keydown', this.keyboardHandler)
+    window.removeEventListener('beforeunload', this.unloadHandler)
   },
 
   methods: {
@@ -232,6 +239,10 @@ export default {
       'redo'
     ]),
     add(type) {
+      const lastRow = Math.max.apply(
+        Math,
+        this.blocks.map(e => e.row)
+      )
       const block = { id: uuid(), type }
       switch (type) {
         case 'text':
@@ -239,7 +250,7 @@ export default {
           block.text = createParagraphs(2)
           block.color = '#777777'
           block.background = '#ffe6ff'
-          block.row = this.rows.length
+          block.row = lastRow + 1
           block.column = 0
           break
         case 'button':
@@ -248,7 +259,7 @@ export default {
           block.button = '#000'
           block.color = '#777777'
           block.background = '#ffe6ff'
-          block.row = this.rows.length
+          block.row = lastRow + 1
           block.column = 0
           break
         case 'image':
@@ -258,7 +269,7 @@ export default {
           block.button = '#000'
           block.color = '#777777'
           block.background = '#ffe6ff'
-          block.row = this.rows.length
+          block.row = lastRow + 1
           block.column = 0
           break
       }
