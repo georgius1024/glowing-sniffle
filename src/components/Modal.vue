@@ -31,7 +31,8 @@ export default {
   },
   mounted() {
     this.handler = event => {
-      if (event.which === 27 && this.value) {
+
+      if (event.code === 'Escape' && this.value) {
         this.$emit('input', false)
       }
     }

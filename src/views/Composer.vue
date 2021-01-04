@@ -197,7 +197,30 @@ export default {
     } else {
       this.resetBlocks()
     }
+    this.handler = event => {
+      if (event.code === 'KeyS' && event.ctrlKey && this.hasUnsavedChanges) {
+        this.saveBlocks()
+        event.preventDefault()
+        return false
+      }
+      if (event.code === 'KeyZ' && event.ctrlKey && this.canUndo) {
+        this.undo()
+        event.preventDefault()
+        return false
+      }
+      if (event.code === 'KeyY' && event.ctrlKey && this.canRedo) {
+        this.redo()
+        event.preventDefault()
+        return false
+      }
+    }
+    document.addEventListener('keydown', this.handler)
+
   },
+  beforeDestroy() {
+    document.removeEventListener('keydown', this.handler)
+  },
+
   methods: {
     ...mapActions(['loadExample', 'load', 'save']),
     ...mapMutations([
