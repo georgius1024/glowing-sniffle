@@ -267,7 +267,7 @@ export default {
     }
     .toolbar {
       flex-grow: 1;
-      margin: 6px 0;
+      margin: 8px 0;
       display: flex;
       & > button {
         padding: 6px;
