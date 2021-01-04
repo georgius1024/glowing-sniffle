@@ -20,8 +20,65 @@
     </div>
     <div class="editor">
       <div class="sticky">
-        <button @click="undo">undo</button>
-        <button @click="redo">redo</button>
+        <div class="toolbar">
+          <button @click="showSorter = true">
+            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M22.67,12L18.18,16.5L15.67,14L17.65,12L15.67,10.04L18.18,7.53L22.67,12M12,1.33L16.47,5.82L13.96,8.33L12,6.35L10,8.33L7.5,5.82L12,1.33M12,22.67L7.53,18.18L10.04,15.67L12,17.65L14,15.67L16.5,18.18L12,22.67M1.33,12L5.82,7.5L8.33,10L6.35,12L8.33,13.96L5.82,16.47L1.33,12M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10Z"
+              />
+            </svg>
+            <span>
+              Sort blocks
+            </span>
+          </button>
+          <button @click="undo">
+            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M12.5,8C9.85,8 7.45,9 5.6,10.6L2,7V16H11L7.38,12.38C8.77,11.22 10.54,10.5 12.5,10.5C16.04,10.5 19.05,12.81 20.1,16L22.47,15.22C21.08,11.03 17.15,8 12.5,8Z"
+              />
+            </svg>
+            <span>
+              Undo
+            </span>
+          </button>
+          <button @click="redo">
+            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M18.4,10.6C16.55,9 14.15,8 11.5,8C6.85,8 2.92,11.03 1.54,15.22L3.9,16C4.95,12.81 7.95,10.5 11.5,10.5C13.45,10.5 15.23,11.22 16.62,12.38L13,16H22V7L18.4,10.6Z"
+              />
+            </svg>
+            <span>
+              Redo
+            </span>
+          </button>
+          <button @click="resetBlocks">
+            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M12,3A9,9 0 0,0 3,12H0L4,16L8,12H5A7,7 0 0,1 12,5A7,7 0 0,1 19,12A7,7 0 0,1 12,19C10.5,19 9.09,18.5 7.94,17.7L6.5,19.14C8.04,20.3 9.94,21 12,21A9,9 0 0,0 21,12A9,9 0 0,0 12,3M14,12A2,2 0 0,0 12,10A2,2 0 0,0 10,12A2,2 0 0,0 12,14A2,2 0 0,0 14,12Z"
+              />
+            </svg>
+            <span>
+              Reset
+            </span>
+          </button>
+
+          <button>
+            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M15,9H5V5H15M12,19A3,3 0 0,1 9,16A3,3 0 0,1 12,13A3,3 0 0,1 15,16A3,3 0 0,1 12,19M17,3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V7L17,3Z"
+              />
+            </svg>
+            <span>
+              Save
+            </span>
+          </button>
+        </div>
+
         <template v-if="selectedBlock">
           <h3>Edit selected block</h3>
           <div>
@@ -35,7 +92,10 @@
             <button v-if="selectedBlock.type === 'text'" @click="toggleText">
               Change text
             </button>
-            <button v-if="selectedBlock.type === 'button'" @click="toggleButtonText">
+            <button
+              v-if="selectedBlock.type === 'button'"
+              @click="toggleButtonText"
+            >
               Change text
             </button>
           </div>
@@ -73,8 +133,7 @@ export default {
     }
   },
   mounted() {
-    this.loadExample()
-    this.selection = this.blocks.length && this.blocks[0].id
+    this.resetBlocks()
   },
   methods: {
     ...mapActions(['loadExample']),
@@ -171,6 +230,10 @@ export default {
           text: createWord()
         })
       }
+    },
+    resetBlocks() {
+      this.loadExample()
+      this.selection = this.blocks.length && this.blocks[0].id
     }
   }
 }
@@ -201,6 +264,23 @@ export default {
     .sticky {
       position: sticky;
       top: 20px;
+    }
+    .toolbar {
+      flex-grow: 1;
+      margin: 6px 0;
+      display: flex;
+      & > button {
+        padding: 6px;
+        background-color: #ccc;
+        border: 1px solid #333;
+        color: #333;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        svg {
+          margin-right: 6px;
+        }
+      }
     }
   }
 }
