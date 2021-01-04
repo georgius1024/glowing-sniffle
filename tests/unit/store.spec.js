@@ -188,7 +188,9 @@ describe('Store', () => {
         })
         it('can delete last added block', () => {
           store.mutations.removeBlock(store.state, added2.id)
-          expect(store.getters.blocks(store.state)).toEqual([initial, added1])
+          expect(store.getters.blocks(store.state).map(e => e.id)).toEqual(
+            [initial, added1].map(e => e.id)
+          )
         })
         it('can delete first added block', () => {
           store.mutations.removeBlock(store.state, added1.id)

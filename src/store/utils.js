@@ -13,8 +13,22 @@ export function actionReducer(blocks, change) {
   switch (change.action) {
     case ACTION_ADD:
       return [...blocks, change.block].map(block => ({ ...block }))
-    case ACTION_REMOVE:
-      return blocks.filter(e => e.id !== change.id)
+    case ACTION_REMOVE: {
+      const cleared = blocks.filter(e => e.id !== change.id)
+      const rows = cleared
+        .sort((a, b) => a.row - b.row || a.column - b.column)
+        .reduce(rowsReducer, [])
+      return rows
+        .filter(row => Boolean(row))
+        .map((row, rowIndex) => {
+          return row
+            .filter(col => Boolean(col))
+            .map((block, colIndex) => {
+              return { ...block, row: rowIndex, column: colIndex }
+            })
+        })
+        .flat()
+    }
     case ACTION_UPDATE:
       return blocks.map(block => {
         if (block.id === change.id) {

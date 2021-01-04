@@ -1,6 +1,12 @@
 <template>
   <div class="preview-rows">
-    <preview-row v-for="(row, index) in rows" :key="index" :value="row" />
+    <preview-row
+      v-for="(row, index) in rows"
+      :key="index"
+      :value="row"
+      :deletes="deletes"
+      @delete="$emit('delete', $event)"
+    />
   </div>
 </template>
 
@@ -16,6 +22,10 @@ export default {
     rows: {
       type: Array,
       required: true
+    },
+    deletes: {
+      type: Boolean,
+      default: false
     }
   }
 }

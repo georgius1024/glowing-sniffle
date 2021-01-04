@@ -29,22 +29,11 @@
       @input="$emit('input', $event)"
     >
       <div
-        :class="{ col: true, active: active && selectedColumn === column }"
+        class="col"
         :style="columnStyle"
-        v-for="(block, column) in value"
+        v-for="block in blocksWithComponents"
         :key="block.id"
-        @mousein="selectedColumn = column"
-        @mousemove="selectedColumn = column"
-        @mouseout="selectedColumn = -1"
       >
-        <button class="delete" @click="deleteBlock(column)">
-          <svg style="width:32px;height:32px" viewBox="0 0 24 24">
-            <path
-              fill="currentColor"
-              d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"
-            />
-          </svg>
-        </button>
         <component v-bind="block.props" :is="block.component" :key="block.id" />
       </div>
     </draggable>
@@ -65,6 +54,10 @@
 </template>
 <script>
 import draggable from 'vuedraggable'
+import TextBlock from '../blocks/TextBlock'
+import ButtonBlock from '../blocks/ButtonBlock'
+import ImageBlock from '../blocks/ImageBlock'
+
 export default {
   name: 'SortableRow',
   components: {
@@ -82,18 +75,34 @@ export default {
     active: {
       type: Boolean,
       default: false
-    },
-    zoom: {
-      type: Number,
-      default: 0.3
     }
   },
   data() {
     return {
-      selectedColumn: -1
     }
   },
   computed: {
+    blocksWithComponents() {
+      const wrap = ({ id, row, column, type, ...rest }, component) => ({
+        component,
+        id,
+        row,
+        column,
+        type,
+        props: rest
+      })
+
+      return this.value.map(block => {
+        switch (block.type) {
+          case 'text':
+            return wrap(block, TextBlock)
+          case 'button':
+            return wrap(block, ButtonBlock)
+          case 'image':
+            return wrap(block, ImageBlock)
+        }
+      })
+    },
     cols() {
       return this.value.length
     },
@@ -122,15 +131,14 @@ export default {
     mouseEnter() {
       this.timer = setTimeout(() => this.activate(), 1000)
     },
-    mouseLeave() {
-      this.deactivate()
-      clearTimeout(this.timer)
+    mouseLeave(e) {
+      if (!e.buttons) {
+        this.deactivate()
+        clearTimeout(this.timer)
+      }
     },
     moveOut(column) {
       this.$emit('move-out', column)
-    },
-    deleteBlock(column) {
-      this.$emit('delete', column)
     }
   }
 }
@@ -174,27 +182,6 @@ export default {
       display: flex;
       padding: 2px;
       position: relative;
-      .delete {
-        display: none;
-        position: absolute;
-        width: 36px;
-        height: 36px;
-        top: 16px;
-        right: 16px;
-        color: red;
-        z-index: 10;
-        border: 0px none transparent;
-        outline: 0px none transparent;
-        background-color: rgba(255, 255, 255, 0.4);
-        border-radius: 50%;
-        box-shadow: none;
-      }
-      &.active {
-        .delete {
-          display: inline;
-          cursor: pointer;
-        }
-      }
       & > * {
         box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.4);
         display: flex;

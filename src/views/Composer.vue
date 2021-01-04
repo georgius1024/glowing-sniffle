@@ -1,10 +1,22 @@
 <template>
   <div class="composer">
     <div class="preview">
+      <button class="show-sorter" @click="showSorter = true">Click to sort blocks</button>
+      <Preview :rows="rows" deletes @delete="removeBlock" />
       <add-block-toolbar @add="add" />
-      <Preview :rows="rows" />
+      <modal v-model="showSorter">
+        <template #header>
+          Sort blocks
+        </template>
+
+        <sorter :rows="rows" @sort="sortBlocks" />
+
+      </modal>
     </div>
-    <div class="editor"></div>
+    <div class="editor">
+      <button @click="undo">undo</button>
+      <button @click="redo">redo</button>
+    </div>
   </div>
 </template>
 <script>
@@ -12,13 +24,21 @@ import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { v4 as uuid } from 'uuid'
 import Preview from '../components/preview'
 import AddBlockToolbar from '../components/AddBlockToolbar'
+import Modal from '../components/Modal'
+import Sorter from '../components/sorter'
 import { createParagraphs, createPhrase, createWord } from '../utils'
-
 export default {
   name: 'Composer',
   components: {
     Preview,
-    AddBlockToolbar
+    AddBlockToolbar,
+    Modal,
+    Sorter
+  },
+  data() {
+    return {
+      showSorter: false
+    }
   },
   computed: {
     ...mapGetters(['rows'])
@@ -28,7 +48,7 @@ export default {
   },
   methods: {
     ...mapActions(['loadExample']),
-    ...mapMutations(['addBlock']),
+    ...mapMutations(['addBlock', 'removeBlock', 'sortBlocks', 'undo', 'redo']),
     add(type) {
       const block = { id: uuid(), type }
       switch (type) {
@@ -61,7 +81,7 @@ export default {
           break
       }
       this.addBlock(block)
-    }
+    },
   }
 }
 </script>
@@ -73,6 +93,16 @@ export default {
   width: 100%;
   .preview {
     margin: 20px;
+    .show-sorter {
+      background-color: #ccc;
+      border: none;
+      outline: none;
+      border-radius: 4px;
+      padding: 12px;
+      margin: 12px 0;
+      display: block;
+      width: 100%;
+    }
   }
   .editor {
     border-left: 1px solid #ccc;
