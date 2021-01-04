@@ -76,6 +76,7 @@ export default {
   justify-content: center;
   top: 0;
   left: 0;
+  z-index: 10;
 }
 .modal {
   border: 1px solid #8b9b9b;

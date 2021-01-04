@@ -28,13 +28,14 @@ export default {
 </script>
 <style lang="scss" scoped>
 .add-block {
+  margin-top: 20px;
   .caption {
     text-align: center;
     font-weight: bold;
   }
   .toolbar {
     flex-grow: 1;
-    margin: 12px 0;
+    margin: 6px 0;
     & > button {
       padding: 6px;
       background-color: #ccc;

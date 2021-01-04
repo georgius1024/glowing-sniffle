@@ -4,8 +4,11 @@
       v-for="(row, index) in rows"
       :key="index"
       :value="row"
-      :deletes="deletes"
+      :editable="editable"
+      :selection="selection"
       @delete="$emit('delete', $event)"
+      @select="$emit('select', $event)"
+      @sort="$emit('sort')"
     />
   </div>
 </template>
@@ -23,9 +26,13 @@ export default {
       type: Array,
       required: true
     },
-    deletes: {
+    editable: {
       type: Boolean,
       default: false
+    },
+    selection: {
+      type: String,
+      requied: false
     }
   }
 }

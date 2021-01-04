@@ -1,8 +1,14 @@
 <template>
   <div class="composer">
     <div class="preview">
-      <button class="show-sorter" @click="showSorter = true">Click to sort blocks</button>
-      <Preview :rows="rows" deletes @delete="removeBlock" />
+      <Preview
+        :rows="rows"
+        :selection="selection"
+        editable
+        @select="selection = $event"
+        @delete="removeBlock"
+        @sort="showSorter = true"
+      />
       <add-block-toolbar @add="add" />
       <modal v-model="showSorter">
         <template #header>
@@ -10,12 +16,31 @@
         </template>
 
         <sorter :rows="rows" @sort="sortBlocks" />
-
       </modal>
     </div>
     <div class="editor">
-      <button @click="undo">undo</button>
-      <button @click="redo">redo</button>
+      <div class="sticky">
+        <button @click="undo">undo</button>
+        <button @click="redo">redo</button>
+        <template v-if="selectedBlock">
+          <h3>Edit selected block</h3>
+          <div>
+            <button @click="toggleBackgroundColor">Change color scheme</button>
+            <button v-if="selectedBlock.type === 'image'" @click="toggleImage">
+              Change image
+            </button>
+            <button v-if="selectedBlock.type === 'text'" @click="toggleHeader">
+              Change header
+            </button>
+            <button v-if="selectedBlock.type === 'text'" @click="toggleText">
+              Change text
+            </button>
+            <button v-if="selectedBlock.type === 'button'" @click="toggleButtonText">
+              Change text
+            </button>
+          </div>
+        </template>
+      </div>
     </div>
   </div>
 </template>
@@ -37,18 +62,30 @@ export default {
   },
   data() {
     return {
-      showSorter: false
+      showSorter: false,
+      selection: ''
     }
   },
   computed: {
-    ...mapGetters(['rows'])
+    ...mapGetters(['rows', 'blocks']),
+    selectedBlock() {
+      return this.blocks.find(e => e.id === this.selection)
+    }
   },
   mounted() {
     this.loadExample()
+    this.selection = this.blocks.length && this.blocks[0].id
   },
   methods: {
     ...mapActions(['loadExample']),
-    ...mapMutations(['addBlock', 'removeBlock', 'sortBlocks', 'undo', 'redo']),
+    ...mapMutations([
+      'addBlock',
+      'removeBlock',
+      'updateBlock',
+      'sortBlocks',
+      'undo',
+      'redo'
+    ]),
     add(type) {
       const block = { id: uuid(), type }
       switch (type) {
@@ -82,6 +119,59 @@ export default {
       }
       this.addBlock(block)
     },
+    toggleBackgroundColor() {
+      if (this.selectedBlock) {
+        if (this.selectedBlock.background === '#194d19') {
+          this.updateBlock({
+            id: this.selectedBlock.id,
+            background: '#ffe6ff',
+            color: '#777777',
+            button: '#000000'
+          })
+        } else {
+          this.updateBlock({
+            id: this.selectedBlock.id,
+            color: '#777777',
+            button: '#cccccc',
+            background: '#194d19'
+          })
+        }
+      }
+    },
+    toggleImage() {
+      if (this.selectedBlock) {
+        const matches = /(\d+)/g.exec(this.selectedBlock.src)
+        const imgNo = parseInt(matches[0]) || 1
+        this.updateBlock({
+          id: this.selectedBlock.id,
+          src: `images/img${imgNo < 3 ? imgNo + 1 : 1}.jpg`
+        })
+      }
+    },
+    toggleHeader() {
+      if (this.selectedBlock) {
+        this.updateBlock({
+          id: this.selectedBlock.id,
+          header: createPhrase()
+        })
+      }
+    },
+    toggleText() {
+      if (this.selectedBlock) {
+        this.updateBlock({
+          id: this.selectedBlock.id,
+          text: createParagraphs(2)
+        })
+      }
+    },
+    toggleButtonText() {
+      if (this.selectedBlock) {
+        this.updateBlock({
+          id: this.selectedBlock.id,
+          text: createWord()
+        })
+      }
+    }
   }
 }
 </script>
@@ -108,6 +198,10 @@ export default {
     border-left: 1px solid #ccc;
     min-height: 100vh;
     flex-grow: 1;
+    .sticky {
+      position: sticky;
+      top: 20px;
+    }
   }
 }
 </style>
