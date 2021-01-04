@@ -21,7 +21,7 @@
     <div class="editor">
       <div class="sticky">
         <div class="toolbar">
-          <button @click="showSorter = true">
+          <button @click="showSorter = true" class="btn">
             <svg style="width:24px;height:24px" viewBox="0 0 24 24">
               <path
                 fill="currentColor"
@@ -32,7 +32,7 @@
               Sort blocks
             </span>
           </button>
-          <button @click="undo">
+          <button @click="undo" class="btn">
             <svg style="width:24px;height:24px" viewBox="0 0 24 24">
               <path
                 fill="currentColor"
@@ -43,7 +43,7 @@
               Undo
             </span>
           </button>
-          <button @click="redo">
+          <button @click="redo" class="btn">
             <svg style="width:24px;height:24px" viewBox="0 0 24 24">
               <path
                 fill="currentColor"
@@ -54,7 +54,7 @@
               Redo
             </span>
           </button>
-          <button @click="resetBlocks">
+          <button @click="resetBlocks" class="btn">
             <svg style="width:24px;height:24px" viewBox="0 0 24 24">
               <path
                 fill="currentColor"
@@ -66,7 +66,7 @@
             </span>
           </button>
 
-          <button>
+          <button class="btn" disabled>
             <svg style="width:24px;height:24px" viewBox="0 0 24 24">
               <path
                 fill="currentColor"
@@ -79,27 +79,72 @@
           </button>
         </div>
 
-        <template v-if="selectedBlock">
+        <div class="block-editor" v-if="selectedBlock">
           <h3>Edit selected block</h3>
           <div>
-            <button @click="toggleBackgroundColor">Change color scheme</button>
-            <button v-if="selectedBlock.type === 'image'" @click="toggleImage">
-              Change image
+            <button @click="toggleBackgroundColor" class="btn block">
+              <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path
+                  fill="currentColor"
+                  d="M17,7H7A5,5 0 0,0 2,12A5,5 0 0,0 7,17H17A5,5 0 0,0 22,12A5,5 0 0,0 17,7M17,15A3,3 0 0,1 14,12A3,3 0 0,1 17,9A3,3 0 0,1 20,12A3,3 0 0,1 17,15Z"
+                />
+              </svg>
+              <span>Change color scheme</span>
             </button>
-            <button v-if="selectedBlock.type === 'text'" @click="toggleHeader">
-              Change header
+            <button
+              v-if="selectedBlock.type === 'image'"
+              @click="toggleImage"
+              class="btn block"
+            >
+              <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path
+                  fill="currentColor"
+                  d="M5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3M12,10A2,2 0 0,0 10,12A2,2 0 0,0 12,14A2,2 0 0,0 14,12A2,2 0 0,0 12,10M7,5A2,2 0 0,0 5,7A2,2 0 0,0 7,9A2,2 0 0,0 9,7A2,2 0 0,0 7,5M17,15A2,2 0 0,0 15,17A2,2 0 0,0 17,19A2,2 0 0,0 19,17A2,2 0 0,0 17,15Z"
+                />
+              </svg>
+              <span>Change image</span>
             </button>
-            <button v-if="selectedBlock.type === 'text'" @click="toggleText">
-              Change text
+            <button
+              v-if="selectedBlock.type === 'text'"
+              @click="toggleHeader"
+              class="btn block"
+            >
+              <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path
+                  fill="currentColor"
+                  d="M5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3M12,10A2,2 0 0,0 10,12A2,2 0 0,0 12,14A2,2 0 0,0 14,12A2,2 0 0,0 12,10M7,5A2,2 0 0,0 5,7A2,2 0 0,0 7,9A2,2 0 0,0 9,7A2,2 0 0,0 7,5M17,15A2,2 0 0,0 15,17A2,2 0 0,0 17,19A2,2 0 0,0 19,17A2,2 0 0,0 17,15Z"
+                />
+              </svg>
+              <span>Change header</span>
+            </button>
+            <button
+              v-if="selectedBlock.type === 'text'"
+              @click="toggleText"
+              class="btn block"
+            >
+              <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path
+                  fill="currentColor"
+                  d="M5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3M12,10A2,2 0 0,0 10,12A2,2 0 0,0 12,14A2,2 0 0,0 14,12A2,2 0 0,0 12,10M7,5A2,2 0 0,0 5,7A2,2 0 0,0 7,9A2,2 0 0,0 9,7A2,2 0 0,0 7,5M17,15A2,2 0 0,0 15,17A2,2 0 0,0 17,19A2,2 0 0,0 19,17A2,2 0 0,0 17,15Z"
+                />
+              </svg>
+              <span>Change text</span>
             </button>
             <button
               v-if="selectedBlock.type === 'button'"
               @click="toggleButtonText"
+              class="btn block"
             >
-              Change text
+              <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path
+                  fill="currentColor"
+                  d="M5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3M12,10A2,2 0 0,0 10,12A2,2 0 0,0 12,14A2,2 0 0,0 14,12A2,2 0 0,0 12,10M7,5A2,2 0 0,0 5,7A2,2 0 0,0 7,9A2,2 0 0,0 9,7A2,2 0 0,0 7,5M17,15A2,2 0 0,0 15,17A2,2 0 0,0 17,19A2,2 0 0,0 19,17A2,2 0 0,0 17,15Z"
+                />
+              </svg>
+              <span>Change text</span>
             </button>
           </div>
-        </template>
+        </div>
       </div>
     </div>
   </div>
@@ -258,6 +303,7 @@ export default {
     }
   }
   .editor {
+    padding: 0 24px;
     border-left: 1px solid #ccc;
     min-height: 100vh;
     flex-grow: 1;
@@ -269,18 +315,29 @@ export default {
       flex-grow: 1;
       margin: 8px 0;
       display: flex;
-      & > button {
-        padding: 6px;
-        background-color: #ccc;
-        border: 1px solid #333;
-        color: #333;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        svg {
-          margin-right: 6px;
-        }
+    }
+    .btn {
+      padding: 6px;
+      background-color: #ccc;
+      border: 1px solid #333;
+      color: #333;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      svg {
+        margin-right: 6px;
       }
+      &[disabled] {
+        color: rgba(0, 0, 0, 0.5);
+        cursor: default;
+      }
+      &.block {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+    .block-editor {
+      margin-top: 16px;
     }
   }
 }
