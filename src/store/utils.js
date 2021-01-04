@@ -14,20 +14,20 @@ export function actionReducer(blocks, change) {
     case ACTION_ADD:
       return [...blocks, change.block].map(block => ({ ...block }))
     case ACTION_REMOVE: {
-      const cleared = blocks.filter(e => e.id !== change.id)
-      const rows = cleared
-        .sort((a, b) => a.row - b.row || a.column - b.column)
-        .reduce(rowsReducer, [])
-      return rows
-        .filter(row => Boolean(row))
-        .map((row, rowIndex) => {
-          return row
-            .filter(col => Boolean(col))
-            .map((block, colIndex) => {
-              return { ...block, row: rowIndex, column: colIndex }
-            })
-        })
-        .flat()
+      return blocks.filter(e => e.id !== change.id)
+      // const rows = cleared
+      //   .sort((a, b) => a.row - b.row || a.column - b.column)
+      //   .reduce(rowsReducer, [])
+      // return rows
+      //   .filter(row => Boolean(row))
+      //   .map((row, rowIndex) => {
+      //     return row
+      //       .filter(col => Boolean(col))
+      //       .map((block, colIndex) => {
+      //         return { ...block, row: rowIndex, column: colIndex }
+      //       })
+      //   })
+      //   .flat()
     }
     case ACTION_UPDATE:
       return blocks.map(block => {
@@ -51,9 +51,11 @@ export function actionReducer(blocks, change) {
   }
 }
 
-export function rowsReducer(rows, block) {
-  const clone = [...rows]
-  clone[block.row] = clone[block.row] || []
-  clone[block.row][block.column] = { ...block }
-  return clone
+export function rowsReducer(rows, block, index) {
+  const clonedRows = [...rows]
+  const clonedBlock = { ...block }
+  const effectiveRow = 'row' in clonedBlock ? clonedBlock.row : index
+  clonedRows[effectiveRow] = clonedRows[effectiveRow] || []
+  clonedRows[effectiveRow].push(clonedBlock)
+  return clonedRows
 }

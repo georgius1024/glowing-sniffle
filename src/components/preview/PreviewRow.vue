@@ -116,7 +116,7 @@ export default {
     .drag {
       top: 16px;
       right: 64px;
-      color: #333;
+      color: #00c6db;
     }
     &.selected {
       outline: 2px dashed #00c6db;

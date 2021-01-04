@@ -21,7 +21,11 @@
     <div class="editor">
       <div class="sticky">
         <div class="toolbar">
-          <button @click="showSorter = true" class="btn">
+          <button
+            @click="showSorter = true"
+            class="btn"
+            :disabled="blocks.length === 0"
+          >
             <svg style="width:24px;height:24px" viewBox="0 0 24 24">
               <path
                 fill="currentColor"
@@ -32,7 +36,7 @@
               Sort blocks
             </span>
           </button>
-          <button @click="undo" class="btn">
+          <button @click="undo" class="btn" :disabled="!canUndo">
             <svg style="width:24px;height:24px" viewBox="0 0 24 24">
               <path
                 fill="currentColor"
@@ -43,7 +47,7 @@
               Undo
             </span>
           </button>
-          <button @click="redo" class="btn">
+          <button @click="redo" class="btn" :disabled="!canRedo">
             <svg style="width:24px;height:24px" viewBox="0 0 24 24">
               <path
                 fill="currentColor"
@@ -66,7 +70,11 @@
             </span>
           </button>
 
-          <button class="btn" disabled>
+          <button
+            class="btn"
+            @click="saveBlocks"
+            :disabled="!hasUnsavedChanges"
+          >
             <svg style="width:24px;height:24px" viewBox="0 0 24 24">
               <path
                 fill="currentColor"
@@ -172,16 +180,26 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['rows', 'blocks']),
+    ...mapGetters([
+      'rows',
+      'blocks',
+      'canUndo',
+      'canRedo',
+      'hasUnsavedChanges'
+    ]),
     selectedBlock() {
       return this.blocks.find(e => e.id === this.selection)
     }
   },
   mounted() {
-    this.resetBlocks()
+    if (localStorage.blocks) {
+      this.loadBlocks()
+    } else {
+      this.resetBlocks()
+    }
   },
   methods: {
-    ...mapActions(['loadExample']),
+    ...mapActions(['loadExample', 'load', 'save']),
     ...mapMutations([
       'addBlock',
       'removeBlock',
@@ -279,6 +297,13 @@ export default {
     resetBlocks() {
       this.loadExample()
       this.selection = this.blocks.length && this.blocks[0].id
+    },
+    saveBlocks() {
+      this.save()
+    },
+    loadBlocks() {
+      this.load()
+      this.selection = this.blocks.length && this.blocks[0].id
     }
   }
 }
@@ -291,19 +316,9 @@ export default {
   width: 100%;
   .preview {
     margin: 20px;
-    .show-sorter {
-      background-color: #ccc;
-      border: none;
-      outline: none;
-      border-radius: 4px;
-      padding: 12px;
-      margin: 12px 0;
-      display: block;
-      width: 100%;
-    }
   }
   .editor {
-    padding: 0 24px;
+    padding: 0 20px;
     border-left: 1px solid #ccc;
     min-height: 100vh;
     flex-grow: 1;
@@ -317,9 +332,11 @@ export default {
       display: flex;
     }
     .btn {
-      padding: 6px;
+      border: none;
+      outline: none;
+      padding: 12px;
       background-color: #ccc;
-      border: 1px solid #333;
+      border: 1px solid #aaa;
       color: #333;
       cursor: pointer;
       display: flex;

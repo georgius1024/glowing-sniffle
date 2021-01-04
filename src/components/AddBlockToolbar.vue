@@ -37,9 +37,11 @@ export default {
     flex-grow: 1;
     margin: 6px 0;
     & > button {
-      padding: 6px;
+      border: none;
+      outline: none;
+      padding: 12px;
       background-color: #ccc;
-      border: 1px solid #333;
+      border: 1px solid #aaa;
       color: #333;
       width: 33.33%;
       cursor: pointer;

@@ -343,6 +343,13 @@ describe('Store', () => {
       const b3 = {
         id: 'b3'
       }
+      it('can sort unindexed blocks 3x1 ', () => {
+        store.state.initialState = [b1, b2, b3]
+        const blocks = store.getters.blocks(store.state)
+        const rows = store.getters.rows(null, { blocks })
+        expect(rows).toEqual([[{ id: 'b1' }], [{ id: 'b2' }], [{ id: 'b3' }]])
+      })
+
       it('can sort blocks 1x1 & 2x1 ', () => {
         const order = [
           {
@@ -432,6 +439,89 @@ describe('Store', () => {
         ])
       })
     })
+    describe('normalizedBlocks', () => {
+      const b1 = {
+        id: 'b1'
+      }
+      const b2 = {
+        id: 'b2'
+      }
+      const b3 = {
+        id: 'b3'
+      }
+      it('can fix unindexed blocks 3x1 ', () => {
+        store.state.initialState = [b1, b2, b3]
+        const blocks = store.getters.blocks(store.state)
+        const rows = store.getters.rows(null, { blocks })
+        const normalizedBlocks = store.getters.normalizedBlocks(null, { rows })
+        expect(normalizedBlocks).toEqual([
+          { id: 'b1', row: 0, column: 0 },
+          { id: 'b2', row: 1, column: 0 },
+          { id: 'b3', row: 2, column: 0 }
+        ])
+      })
+
+      it('can normalize sorted blocks', () => {
+        const order = [
+          {
+            id: b1.id,
+            row: 0,
+            column: 0
+          },
+          {
+            id: b2.id,
+            row: 0,
+            column: 1
+          },
+          {
+            id: b3.id,
+            row: 0,
+            column: 2
+          }
+        ]
+        store.state.initialState = [b1, b2, b3]
+        store.mutations.sortBlocks(store.state, order)
+        const blocks = store.getters.blocks(store.state)
+        const rows = store.getters.rows(null, { blocks })
+        const normalizedBlocks = store.getters.normalizedBlocks(null, { rows })
+        expect(normalizedBlocks).toEqual([
+          { id: 'b1', row: 0, column: 0 },
+          { id: 'b2', row: 0, column: 1 },
+          { id: 'b3', row: 0, column: 2 }
+        ])
+      })
+
+      it('can normalize badly sorted blocks', () => {
+        const order = [
+          {
+            id: b1.id,
+            row: 3,
+            column: 3
+          },
+          {
+            id: b2.id,
+            row: 3,
+            column: 3
+          },
+          {
+            id: b3.id,
+            row: 3,
+            column: 3
+          }
+        ]
+        store.state.initialState = [b1, b2, b3]
+        store.mutations.sortBlocks(store.state, order)
+        const blocks = store.getters.blocks(store.state)
+        const rows = store.getters.rows(null, { blocks })
+        const normalizedBlocks = store.getters.normalizedBlocks(null, { rows })
+        console.log(normalizedBlocks)
+        expect(normalizedBlocks).toEqual([
+          { id: 'b1', row: 0, column: 0 },
+          { id: 'b2', row: 0, column: 1 },
+          { id: 'b3', row: 0, column: 2 }
+        ])
+      })
+    })
   })
 
   describe('Actions', () => {
@@ -452,8 +542,8 @@ describe('Store', () => {
         store.state.changes = []
         store.state.position = []
         store.state.initialState = [b1, b2, b3]
-        const blocks = store.getters.blocks(store.state)
-        store.actions.save({ getters: { blocks } })
+        const normalizedBlocks = store.getters.blocks(store.state)
+        store.actions.save({ getters: { normalizedBlocks } })
         expect(localStorage).toHaveProperty('blocks')
         expect(localStorage.blocks).toBe(
           JSON.stringify(store.state.initialState)
