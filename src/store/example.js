@@ -10,6 +10,27 @@ export default [
     column: 0
   },
   {
+    id: 'i2',
+    type: 'image',
+    src: 'images/img2.jpg',
+    url: '#',
+    alt: 'Semper homo bonus tiro est',
+    background: '#194d19',
+    row: 0,
+    column: 1
+  },
+  {
+    id: 'i3',
+    type: 'image',
+    src: 'images/img3.jpg',
+    url: '#',
+    alt: 'Quid est veritas?',
+    background: '#194d19',
+    row: 0,
+    column: 2
+  },
+
+  {
     id: 't1',
     type: 'text',
     header: 'Vita brevis ars longa',
@@ -32,26 +53,6 @@ export default [
     column: 1
   },
   {
-    id: 'i2',
-    type: 'image',
-    src: 'images/img2.jpg',
-    url: '#',
-    alt: 'Semper homo bonus tiro est',
-    background: '#194d19',
-    row: 2,
-    column: 0
-  },
-  {
-    id: 'i3',
-    type: 'image',
-    src: 'images/img3.jpg',
-    url: '#',
-    alt: 'Quid est veritas?',
-    background: '#194d19',
-    row: 2,
-    column: 1
-  },
-  {
     id: 't2',
     type: 'text',
     header: 'Virtūtem primam esse puta compescĕre linguam',
@@ -59,7 +60,7 @@ export default [
       'Etiam pellentesque neque sed accumsan blandit. Quisque posuere ex molestie odio maximus, nec commodo diam condimentum.',
     color: '#777777',
     background: '#ffe6ff',
-    row: 3,
+    row: 2,
     column: 0
   },
   {
@@ -70,7 +71,7 @@ export default [
     url: '#',
     button: '#ccc',
     background: '#194d19',
-    row: 4,
+    row: 3,
     column: 0
   },
   {
@@ -81,7 +82,7 @@ export default [
     url: '#',
     button: '#ccc',
     background: '#194d19',
-    row: 4,
+    row: 3,
     column: 1
   },
   {
@@ -92,7 +93,7 @@ export default [
     url: '#',
     button: '#ccc',
     background: '#194d19',
-    row: 4,
+    row: 3,
     column: 2
   }
 ]
