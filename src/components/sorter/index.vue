@@ -3,6 +3,7 @@
     group="rows"
     id="sorter"
     :animation="150"
+    :swapThreshold="0.75"
     :value="rows"
     @input="input"
   >

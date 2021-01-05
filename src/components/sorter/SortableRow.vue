@@ -24,7 +24,7 @@
       class="row"
       :animation="150"
       :disabled="!isSortable"
-      :swapThreshold="0.65"
+      :swapThreshold="0.75"
       :value="value"
       @input="$emit('input', $event)"
     >
